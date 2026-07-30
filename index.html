@@ -1,0 +1,23 @@
+<html>
+    <head>
+        <title>ToDo App</title>
+        <link rel="stylesheet" href="/styles/style.css">
+    </head>
+    <body>
+        <h1 id="welcome">ToDo Application</h1>
+        <form id="todo-form">
+            <input type="text" id="title" placeholder="Task title" required>
+            <input type="text" id="description" placeholder="Task description" required>
+            <input type="date" id="due-date" required>
+            <select id="status">
+                <option value="Todo">Todo</option>
+                <option value="In Progress">In Progress</option>
+                <option value="Completed">Completed</option>
+            </select>
+            <button type="submit">Add Task</button>
+        </form>
+        <section id="task-list">
+            <!-- Task list will be dynamically populated here -->
+        </section>
+    </body>
+</html>

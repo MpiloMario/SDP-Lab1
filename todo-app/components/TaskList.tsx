@@ -17,6 +17,7 @@ export default function TaskList({
 }: {
   tasks: Task[];
 }) {
+    const [sortBy, setSortBy] = useState("created");
     const router = useRouter();
 
     const [editingTask, setEditingTask] = useState<number | null>(null);
@@ -27,18 +28,49 @@ export default function TaskList({
     dueDate: "",
     status: "Todo",
     });
+    const sortedTasks = [...tasks];
+            if (sortBy === "created") {
+            sortedTasks.sort((a, b) => b.id - a.id);
+            }
+
+            if (sortBy === "dueDate") {
+            sortedTasks.sort(
+                (a, b) =>
+                new Date(a.dueDate).getTime() -
+                new Date(b.dueDate).getTime()
+            );
+            }
+
+            if (sortBy === "status") {
+            sortedTasks.sort((a, b) =>
+                a.status.localeCompare(b.status)
+            );
+            }
   return (
     <section className="max-w-4xl mx-auto mt-10">
       <h2 className="text-2xl font-bold mb-4">Tasks</h2>
+
+      <div className="mb-4">
+        <select
+            value={sortBy}
+            onChange={(e) => setSortBy(e.target.value)}
+            className="border p-2 rounded"
+        >
+            <option value="created">Newest First</option>
+            <option value="dueDate">Due Date</option>
+            <option value="status">Status</option>
+        </select>
+        </div>
 
       {tasks.length === 0 ? (
         <p>No tasks available.</p>
       ) : (
         <div className="space-y-4">
-         {tasks.map((task) => {
+         {sortedTasks.map((task) => {
             const isOverdue =
                 task.status !== "Complete" &&
                 new Date(task.dueDate) < new Date();
+
 
             return (
             <div

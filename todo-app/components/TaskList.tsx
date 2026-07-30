@@ -74,6 +74,18 @@ export default function TaskList({
                     >
                     Edit
                 </button>
+                <button
+                onClick={async () => {
+                    await fetch(`/api/tasks/${task.id}/archive`, {
+                    method: "PATCH",
+                    });
+
+                    router.refresh();
+                }}
+                className="mt-3 ml-2 bg-red-500 text-white px-4 py-2 rounded"
+                >
+                Archive
+                </button>
                 {editingTask === task.id && (
                     <div className="mt-4 space-y-2">
                         <input

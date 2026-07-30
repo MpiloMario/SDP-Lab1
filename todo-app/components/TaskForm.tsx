@@ -5,6 +5,8 @@ import { useRouter } from "next/navigation";
 
 
 export default function TaskForm() {
+    const router = useRouter();
+
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [topic, setTopic] = useState("");
@@ -35,7 +37,6 @@ export default function TaskForm() {
     setStatus("Todo");
 
 
-    const router = useRouter();
 
     // after successful POST
     router.refresh();

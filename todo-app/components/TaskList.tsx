@@ -35,15 +35,28 @@ export default function TaskList({
         <p>No tasks available.</p>
       ) : (
         <div className="space-y-4">
-          {tasks.map((task) => (
+         {tasks.map((task) => {
+            const isOverdue =
+                task.status !== "Complete" &&
+                new Date(task.dueDate) < new Date();
+
+            return (
             <div
               key={task.id}
-              className="border rounded-lg p-4 shadow"
+              className={`border rounded-lg p-4 shadow ${
+                isOverdue
+                    ? "border-red-500 bg-red-50"
+                    : ""
+                }`}
             >
               <h3 className="text-lg font-bold">
                 {task.title}
               </h3>
-
+                {isOverdue && (
+                    <p className="text-red-600 font-bold">
+                        ⚠ Overdue
+                    </p>
+                    )}
               <p>{task.description}</p>
 
               <p>
@@ -166,9 +179,10 @@ export default function TaskList({
                         Save Changes
                         </button>
                     </div>
-                    )}
-            </div>
-          ))}
+                )}
+              </div>
+            );
+          })}
         </div>
       )}
     </section>

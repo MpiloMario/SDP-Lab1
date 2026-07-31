@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
+import Link from "next/link";
 
 type Task = {
   id: number;
@@ -32,6 +33,11 @@ export default function TaskList({
             if (sortBy === "created") {
             sortedTasks.sort((a, b) => b.id - a.id);
             }
+            if (sortBy === "topic") {
+            sortedTasks.sort((a, b) =>
+                a.topic.localeCompare(b.topic)
+            );
+            }
 
             if (sortBy === "dueDate") {
             sortedTasks.sort(
@@ -49,6 +55,9 @@ export default function TaskList({
   return (
     <section className="max-w-4xl mx-auto mt-10">
       <h2 className="text-2xl font-bold mb-4">Tasks</h2>
+      <Link href="/archived">
+        View Archived Tasks
+      </Link>
 
       <div className="mb-4">
         <select
@@ -59,6 +68,7 @@ export default function TaskList({
             <option value="created">Newest First</option>
             <option value="dueDate">Due Date</option>
             <option value="status">Status</option>
+            <option value="topic">Topic</option>
         </select>
         </div>
 
